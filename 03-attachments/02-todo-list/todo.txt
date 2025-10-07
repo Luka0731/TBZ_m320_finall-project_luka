@@ -1,0 +1,43 @@
+//////////////////////////////
+          Todo Liste
+//////////////////////////////
+
+---
+| | Sauberes GitHub führen mit Branches
+---
+---
+| | Backend machen
+---
+---
+| | Tests machen (Nur Postman)
+---
+---
+| |  Klassen Diagram
+---
+---
+| | Usecasses
+---
+---
+| | Sequenzdiagramm
+---
+---
+| | 2 Design Patterns aussuchen
+---
+---
+| | Design Patterns dokumentieren
+---
+---
+| | Coding Guidlines dokumentieren (für clean code anforderung)
+---
+---
+| | Lernprozess dokumentieren mit Fazit
+---
+---
+| | Projektbeschreibung schreiben
+---
+---
+| | Big README mit allen anderen files und Verlinkungen erstellen
+---
+---
+| | Alles in main branch
+---
