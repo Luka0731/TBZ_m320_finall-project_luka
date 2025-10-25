@@ -1,4 +1,4 @@
-package ch.tbz.book_archive.core.generic;
+package ch.tbz.bookarchive.core.generic;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
