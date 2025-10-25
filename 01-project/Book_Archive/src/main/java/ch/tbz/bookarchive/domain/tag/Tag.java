@@ -18,7 +18,7 @@ import lombok.extern.log4j.Log4j2;
 @Setter
 @Accessors(chain = true)
 public class Tag extends AbstractEntity {
-    @Column(nullable = false)
+    @Column(nullable = false, length = 32)
     private String name;
 
     @Column(name = "tag_type", nullable = false)

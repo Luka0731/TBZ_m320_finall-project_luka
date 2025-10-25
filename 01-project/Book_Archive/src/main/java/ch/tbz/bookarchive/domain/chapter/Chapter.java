@@ -19,18 +19,19 @@ import lombok.extern.log4j.Log4j2;
 @Setter
 @Accessors(chain = true)
 public class Chapter extends AbstractEntity {
-    @Column(nullable = false)
+    @Column(nullable = false, length = 64)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String text;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "chapter_number", nullable = false)
     private Integer chapterNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
-    private Book bookId;
+    private Book book;
 }
