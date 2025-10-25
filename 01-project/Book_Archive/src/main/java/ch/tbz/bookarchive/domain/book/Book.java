@@ -55,4 +55,22 @@ public class Book extends AbstractEntity {
 
     @Formula("select count(*) from user_liked_book ulb where ulb.book_id = id")
     private Integer likeAmount;
+
+
+    // |---- chapter methods ----|
+
+    public Book addChapter(Chapter chapter) {
+        if (chapter == null) return this;
+        chapters.add(chapter);
+        chapter.setBook(this);
+        return this;
+    }
+
+    public Book removeChapter(Chapter chapter) {
+        if (chapter == null) return this;
+        if (chapters.remove(chapter)) {
+            chapter.setBook(null);
+        }
+        return this;
+    }
 }
