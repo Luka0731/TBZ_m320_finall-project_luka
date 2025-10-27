@@ -39,7 +39,7 @@ public class User extends AbstractEntity {
   private Set<Book> ownedBooks = new HashSet<>();
 
   @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_liked_book", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
+  @JoinTable(name = "user_likes_book", joinColumns = @JoinColumn(name = "users_id", referencedColumnName = "id"),
           inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
   private Set<Book> likedBooks = new HashSet<>();
 }
