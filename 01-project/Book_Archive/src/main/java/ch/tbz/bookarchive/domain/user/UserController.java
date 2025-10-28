@@ -1,16 +1,13 @@
 package ch.tbz.bookarchive.domain.user;
 
+import ch.tbz.bookarchive.domain.user.dto.UserDTO;
 import ch.tbz.bookarchive.domain.user.dto.UserMapper;
-import com.example.demo.domain.user.dto.UserDTO;
-import com.example.demo.domain.user.dto.UserMapper;
-import com.example.demo.domain.user.dto.UserRegisterDTO;
-import com.example.demo.domain.user.dto.UserUpdateDTO;
+import ch.tbz.bookarchive.domain.user.dto.UserRegisterDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,18 +49,12 @@ public class UserController {
     User user = userService.register(userMapper.fromUserRegisterDTO(userRegisterDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
   }
-  @PostMapping("/registerUser")
-  @Operation(summary = "Create a new user without password", description = "Create a new user without a password or roles and authorities")
-  public ResponseEntity<UserDTO> registerWithoutPassword(@Valid @RequestBody UserDTO userDTO) {
-    User user = userService.registerUser(userMapper.fromDTO(userDTO));
-    return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
-  }
 
   @PutMapping("/{id}")
   @Operation(summary = "Update a user by id", description = "Update a certain user by id")
   //@PreAuthorize("hasAuthority('USER_MODIFY')")
-  public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
-    User user = userService.updateById(id, userMapper.fromUserUpdateDTO(userUpdateDTO));
+  public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
+    User user = userService.updateById(id, userMapper.fromDTO(userDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
   }
 

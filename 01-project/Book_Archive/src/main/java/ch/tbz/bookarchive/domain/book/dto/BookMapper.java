@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface BookMapper extends AbstractMapper<Book, BookRequestDTO, BookRequestDTO> {
+public interface BookMapper extends AbstractMapper<Book, BookDTO> {
 }
