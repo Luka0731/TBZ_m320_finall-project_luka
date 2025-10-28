@@ -1,7 +1,7 @@
 package ch.tbz.bookarchive.core.security;
 
-import com.example.demo.core.security.helpers.JwtProperties;
-import com.example.demo.domain.user.UserService;
+import ch.tbz.bookarchive.core.security.helpers.JwtProperties;
+import ch.tbz.bookarchive.domain.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +39,7 @@ public class WebSecurityConfig {
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     return http.authorizeHttpRequests(
-        requests -> requests.requestMatchers(HttpMethod.POST, "/user/login", "/user/register").permitAll()
+        requests -> requests.requestMatchers(HttpMethod.POST, "/user/login", "/user/signup").permitAll()
                             .requestMatchers(HttpMethod.GET, "/v3/api-docs","/v3/api-docs/swagger-config","/swagger-ui/*").permitAll()
                             .anyRequest().authenticated())
             .addFilterAfter(new JWTAuthenticationFilter(new AntPathRequestMatcher("/user/login", "POST"),

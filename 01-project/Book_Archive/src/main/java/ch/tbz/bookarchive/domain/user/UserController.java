@@ -2,7 +2,7 @@ package ch.tbz.bookarchive.domain.user;
 
 import ch.tbz.bookarchive.domain.user.dto.UserDTO;
 import ch.tbz.bookarchive.domain.user.dto.UserMapper;
-import ch.tbz.bookarchive.domain.user.dto.UserRegisterDTO;
+import ch.tbz.bookarchive.domain.user.dto.UserSignupDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,10 +43,10 @@ public class UserController {
     return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
   }
 
-  @PostMapping("/register")
+  @PostMapping("/signup")
   @Operation(summary = "Create a new user", description = "Create a new user with a password")
-  public ResponseEntity<UserDTO> register(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
-    User user = userService.register(userMapper.fromUserRegisterDTO(userRegisterDTO));
+  public ResponseEntity<UserDTO> signup(@Valid @RequestBody UserSignupDTO userRegisterDTO) {
+    User user = userService.signup(userMapper.fromUserRegisterDTO(userRegisterDTO));
     return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
   }
 

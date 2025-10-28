@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.5.6'
-    id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.springframework.boot' version '3.1.2'
+    id 'io.spring.dependency-management' version '1.1.2'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
 }
 
-group = 'ch.noseryoung'
-version = '0.0.1-SNAPSHOT'
-description = 'Book_Archive'
+group = 'ch.tbz'
+version = '1.0.0-RELEASE'
 
 java {
     toolchain {
@@ -25,6 +25,7 @@ repositories {
 }
 
 dependencies {
+    // basic stuff
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -45,8 +46,16 @@ dependencies {
 
     // swagger
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.6'
+
+    // validator
+    implementation group: 'commons-validator', name: 'commons-validator', version: '1.7'
+
+    // jwt
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }

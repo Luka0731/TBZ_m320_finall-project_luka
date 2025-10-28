@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class UserRegisterDTO extends AbstractDTO {
+public class UserSignupDTO extends AbstractDTO {
     private String userName;
 
     @Email

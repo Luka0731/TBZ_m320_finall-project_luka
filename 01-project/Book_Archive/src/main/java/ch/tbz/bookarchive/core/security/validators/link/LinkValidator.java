@@ -10,7 +10,6 @@ public class LinkValidator implements ConstraintValidator<Link, String> {
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {
     UrlValidator urlValidator = new UrlValidator(new String[] {"http", "https"});
-
     return urlValidator.isValid(value);
   }
 }

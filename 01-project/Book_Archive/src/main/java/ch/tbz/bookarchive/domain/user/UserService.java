@@ -1,10 +1,8 @@
 package ch.tbz.bookarchive.domain.user;
 
-
 import ch.tbz.bookarchive.core.generic.AbstractService;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService extends UserDetailsImpl, AbstractService<User> {
-  User register(User user);
-
-  User registerUser(User user);
+public interface UserService extends UserDetailsService, AbstractService<User> {
+  User signup(User user);
 }
