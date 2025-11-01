@@ -26,7 +26,7 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
 
   @Override
   public User signup(User user) {
-    user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
+    user.setPassword(passwordEncoder.encode(user.getPassword()));
     return save(user);
   }
 }
