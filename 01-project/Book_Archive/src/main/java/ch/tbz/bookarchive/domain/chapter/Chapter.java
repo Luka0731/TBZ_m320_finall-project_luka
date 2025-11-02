@@ -2,6 +2,7 @@ package ch.tbz.bookarchive.domain.chapter;
 
 import ch.tbz.bookarchive.core.generic.AbstractEntity;
 import ch.tbz.bookarchive.domain.book.Book;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,6 +32,7 @@ public class Chapter extends AbstractEntity {
     @Column(name = "chapter_number", nullable = false)
     private Integer chapterNumber;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
