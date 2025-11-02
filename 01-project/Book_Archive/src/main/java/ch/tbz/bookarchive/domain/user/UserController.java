@@ -3,6 +3,7 @@ package ch.tbz.bookarchive.domain.user;
 import ch.tbz.bookarchive.domain.user.dto.UserDTO;
 import ch.tbz.bookarchive.domain.user.dto.UserMapper;
 import ch.tbz.bookarchive.domain.user.dto.UserSignupDTO;
+import ch.tbz.bookarchive.domain.user.dto.UserUpdateDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,11 @@ public class UserController {
     @PutMapping("/{id}")
     @Operation(summary = "Update a user by id", description = "Update a certain user by id")
     //@PreAuthorize("hasAuthority('USER_MODIFY')")
-    public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserDTO userDTO) {
-        User user = userService.updateById(id, userMapper.fromDTO(userDTO));
+    public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
+        User user = userService.findById(id);
+        user.setUserName(userUpdateDTO.getUserName());
+        user.setEmail(userUpdateDTO.getEmail());
+        user = userService.save(user);
         return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
     }
 

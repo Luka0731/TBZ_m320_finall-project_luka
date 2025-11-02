@@ -40,7 +40,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
   @Transactional
   public void deleteById(UUID id) throws NoSuchElementException {
         User user = findById(id);
-
         // clear all book likes (ManyToMany relationship)
         Set<Book> likedBooks = user.getLikedBooks();
         if (likedBooks != null && !likedBooks.isEmpty()) {
@@ -49,7 +48,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
             }
             likedBooks.clear();
         }
-
         // for each owned book, clear its likes too
         Set<Book> ownedBooks = user.getOwnedBooks();
         if (ownedBooks != null && !ownedBooks.isEmpty()) {
@@ -64,7 +62,6 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
                 }
             }
         }
-
         repository.deleteById(id);
     }
 }

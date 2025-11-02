@@ -39,7 +39,7 @@ public class CustomGlobalExceptionHandler {
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   public ResponseError handleNoSuchElement() {
     Map<String, String> errors = new HashMap<>();
-    errors.put("element", "Element wurde nicht gefunden");
+    errors.put("element", "Element was not found");
     return new ResponseError().setTimeStamp(LocalDate.now())
                               .setErrors(errors)
                               .build();
@@ -49,7 +49,7 @@ public class CustomGlobalExceptionHandler {
   @ResponseStatus(value = HttpStatus.NOT_FOUND)
   public ResponseError handleUsernameNotFound(Throwable e) {
     Map<String, String> errors = new HashMap<>();
-    errors.put("username", String.format("Email %s wurde nicht gefunden", e.getMessage()));
+    errors.put("username", String.format("Email %s was not found", e.getMessage()));
     return new ResponseError().setTimeStamp(LocalDate.now())
                               .setErrors(errors)
                               .build();
