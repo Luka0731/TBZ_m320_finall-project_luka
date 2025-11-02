@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @NoArgsConstructor@AllArgsConstructor
 @Getter
@@ -23,8 +24,8 @@ public class UserDTO extends AbstractDTO {
 
     private LocalDate creationDate;
 
-    private Set<Book> ownedBooks = new HashSet<>();
+    private Set<UUID> ownedBookIds = new HashSet<>();
 
-    private Set<Book> likedBooks = new HashSet<>();
+    private Set<UUID> likedBookIds = new HashSet<>();
 }
 // todo: validation

@@ -29,33 +29,33 @@ public class BookController {
     @GetMapping("/{id}")
     @Operation(summary = "Show a book by id", description = "Find and show a book by id")
     // @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Book> retrieveById(@PathVariable UUID id) {
+    public ResponseEntity<BookDTO> retrieveById(@PathVariable UUID id) {
         Book book = bookService.findById(id);
-        return new ResponseEntity<>(book, HttpStatus.OK);
+        return new ResponseEntity<>(bookMapper.toDTO(book), HttpStatus.OK);
     }
 
     @GetMapping()
     @Operation(summary = "Show all users", description = "Show all existing users")
     // @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<List<Book>> retrieveAll() {
+    public ResponseEntity<List<BookDTO>> retrieveAll() {
         List<Book> books = bookService.findAll();
-        return new ResponseEntity<>(books, HttpStatus.OK);
+        return new ResponseEntity<>(bookMapper.toDTOs(books), HttpStatus.OK);
     }
 
     @PostMapping()
     @Operation(summary = "Create a new book", description = "Create a new book and saves it in the database")
     // @PreAuthorize("hasAuthority('LIST_ELEMENT_CREATE') && @listElementPermissionEvaluator.canCreate(authentication.principal.user, #listElementCreateDTO.getUserId())")
-    public ResponseEntity<Book> create(@Valid @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> create(@Valid @RequestBody BookDTO bookDTO) {
         Book book = bookService.save(bookMapper.fromDTO(bookDTO));
-        return new ResponseEntity<>(book, HttpStatus.CREATED);
+        return new ResponseEntity<>(bookMapper.toDTO(book), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a user by id", description = "Update a certain user by id")
     // @PreAuthorize("hasAuthority('LIST_ELEMENT_MODIFY') and (@listElementPermissionEvaluator.hasRole(authentication.principal.user,'USER') and @listElementPermissionEvaluator.isOwner(authentication.principal.user, #id)) or (@listElementPermissionEvaluator.hasRole(authentication.principal.user,'ADMIN') and @listElementPermissionEvaluator.isNotOwner(authentication.principal.user, #id))")
-    public ResponseEntity<Book> updateById(@PathVariable UUID id, @Valid @RequestBody BookDTO bookDTO) {
+    public ResponseEntity<BookDTO> updateById(@PathVariable UUID id, @Valid @RequestBody BookDTO bookDTO) {
         Book book = bookService.updateById(id, bookMapper.fromDTO(bookDTO));
-        return new ResponseEntity<>(book, HttpStatus.OK);
+        return new ResponseEntity<>(bookMapper.toDTO(book), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

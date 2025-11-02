@@ -40,7 +40,7 @@ public class Book extends AbstractEntity {
     @Column(name = "is_public", nullable = false)
     private Boolean isPublic;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User author;
 
@@ -53,7 +53,7 @@ public class Book extends AbstractEntity {
     @OrderBy("chapterNumber ASC")
     private List<Chapter> chapters = new ArrayList<>();
 
-    @Formula("select count(*) from user_liked_book ulb where ulb.book_id = id")
+    @Formula("(select count(*) from user_likes_book ulb where ulb.book_id = id)")
     private Integer likeAmount;
 
 

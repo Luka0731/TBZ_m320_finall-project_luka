@@ -11,10 +11,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @NoArgsConstructor@AllArgsConstructor
 @Getter
@@ -29,11 +26,15 @@ public class BookDTO extends AbstractDTO {
 
     private Boolean isPublic;
 
-    private User author;
+    private UUID authorId;
+
+    private String authorName;
 
     private Set<Tag> tags = new HashSet<>();
 
     private List<Chapter> chapters = new ArrayList<>();
+
+    private Integer likeAmount;
 }
 // todo: validation
 

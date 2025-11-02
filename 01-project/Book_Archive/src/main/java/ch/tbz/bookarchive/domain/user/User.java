@@ -30,7 +30,7 @@ public class User extends AbstractEntity {
   private String email;
 
   @Column(name = "password_hash", nullable = false)
-  private String password;
+  private String passwordHash;
 
   @Column(name = "creation_date")
   private LocalDate creationDate;
