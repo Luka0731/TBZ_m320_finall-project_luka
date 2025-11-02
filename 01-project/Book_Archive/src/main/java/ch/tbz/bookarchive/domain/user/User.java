@@ -33,7 +33,7 @@ public class User extends AbstractEntity {
   private String passwordHash;
 
   @Column(name = "creation_date")
-  private LocalDate creationDate;
+  private LocalDate creationDate = LocalDate.now();
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true) // todo
   private Set<Book> ownedBooks = new HashSet<>();
