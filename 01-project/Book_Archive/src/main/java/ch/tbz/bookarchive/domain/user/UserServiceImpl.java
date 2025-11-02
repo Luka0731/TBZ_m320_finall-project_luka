@@ -2,6 +2,7 @@ package ch.tbz.bookarchive.domain.user;
 
 import ch.tbz.bookarchive.core.generic.AbstractServiceImpl;
 import ch.tbz.bookarchive.domain.book.Book;
+import ch.tbz.bookarchive.domain.book.BookRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,11 +17,13 @@ import java.util.UUID;
 @Service
 public class UserServiceImpl extends AbstractServiceImpl<User> implements UserService {
   private final PasswordEncoder passwordEncoder;
+  private final BookRepository bookRepository;
 
   @Autowired
-  public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder) {
+  public UserServiceImpl(UserRepository repository, PasswordEncoder passwordEncoder, BookRepository bookRepository) {
     super(repository);
     this.passwordEncoder = passwordEncoder;
+    this.bookRepository = bookRepository;
   }
 
   @Override
@@ -34,6 +37,20 @@ public class UserServiceImpl extends AbstractServiceImpl<User> implements UserSe
   public User signup(User user) {
     user.setPasswordHash(passwordEncoder.encode(user.getPasswordHash()));
     return save(user);
+  }
+
+  @Override
+  @Transactional
+  public User toggleLikeBook(UUID userId, UUID bookId) {
+      User user = findById(userId);
+      Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new NoSuchElementException("Book not found"));
+      if (user.getLikedBooks().contains(book)) {
+          user.getLikedBooks().remove(book);
+      } else {
+          user.getLikedBooks().add(book);
+      }
+      return repository.save(user);
   }
 
   @Override

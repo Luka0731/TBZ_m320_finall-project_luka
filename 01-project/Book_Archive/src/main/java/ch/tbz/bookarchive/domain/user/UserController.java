@@ -13,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 @Validated
@@ -63,6 +64,14 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PatchMapping("/{userId}/likes-book/{bookId}")
+    @Operation(summary = "Toggle book like", description = "Like if not liked, unlike if already liked")
+    //@PreAuthorize("hasAuthority('USER_DEACTIVATE')")
+    public ResponseEntity<UserDTO> toggleLikeBook(@PathVariable UUID userId, @PathVariable UUID bookId) {
+        User user = userService.toggleLikeBook(userId, bookId);
+        return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
+    }
+
 
     // |--- authentication stuff ---/
 
@@ -73,4 +82,4 @@ public class UserController {
         return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
     }
 }
-
+// todo: authorisation
