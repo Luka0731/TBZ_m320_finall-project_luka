@@ -2,6 +2,7 @@ package ch.tbz.bookarchive.domain.book;
 
 import ch.tbz.bookarchive.domain.book.dto.BookMapper;
 import ch.tbz.bookarchive.domain.book.dto.BookDTO;
+import ch.tbz.bookarchive.domain.book.dto.BookRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,16 +46,16 @@ public class BookController {
     @PostMapping()
     @Operation(summary = "Create a new book", description = "Create a new book and saves it in the database")
     // @PreAuthorize("hasAuthority('LIST_ELEMENT_CREATE') && @listElementPermissionEvaluator.canCreate(authentication.principal.user, #listElementCreateDTO.getUserId())")
-    public ResponseEntity<BookDTO> create(@Valid @RequestBody BookDTO bookDTO) {
-        Book book = bookService.save(bookMapper.fromDTO(bookDTO));
+    public ResponseEntity<BookDTO> create(@Valid @RequestBody BookRequestDTO bookRequestDTO) {
+        Book book = bookService.save(bookMapper.fromBookRequestDTO(bookRequestDTO));
         return new ResponseEntity<>(bookMapper.toDTO(book), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a user by id", description = "Update a certain user by id")
     // @PreAuthorize("hasAuthority('LIST_ELEMENT_MODIFY') and (@listElementPermissionEvaluator.hasRole(authentication.principal.user,'USER') and @listElementPermissionEvaluator.isOwner(authentication.principal.user, #id)) or (@listElementPermissionEvaluator.hasRole(authentication.principal.user,'ADMIN') and @listElementPermissionEvaluator.isNotOwner(authentication.principal.user, #id))")
-    public ResponseEntity<BookDTO> updateById(@PathVariable UUID id, @Valid @RequestBody BookDTO bookDTO) {
-        Book book = bookService.updateById(id, bookMapper.fromDTO(bookDTO));
+    public ResponseEntity<BookDTO> updateById(@PathVariable UUID id, @Valid @RequestBody BookRequestDTO bookRequestDTO) {
+        Book book = bookService.updateById(id, bookMapper.fromBookRequestDTO(bookRequestDTO));
         return new ResponseEntity<>(bookMapper.toDTO(book), HttpStatus.OK);
     }
 
