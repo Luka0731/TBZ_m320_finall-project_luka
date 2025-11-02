@@ -4,6 +4,7 @@ import ch.tbz.bookarchive.core.generic.AbstractEntity;
 import ch.tbz.bookarchive.domain.chapter.Chapter;
 import ch.tbz.bookarchive.domain.tag.Tag;
 import ch.tbz.bookarchive.domain.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,7 +41,7 @@ public class Book extends AbstractEntity {
     @Column(name = "is_public", nullable = false)
     private Boolean isPublic;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User author;
 
@@ -55,6 +56,10 @@ public class Book extends AbstractEntity {
 
     @Formula("(select count(*) from user_likes_book ulb where ulb.book_id = id)")
     private Integer likeAmount;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "likedBooks", fetch = FetchType.LAZY)
+    private Set<User> likedByUsers = new HashSet<>();
 
 
     // |---- chapter methods ----|
