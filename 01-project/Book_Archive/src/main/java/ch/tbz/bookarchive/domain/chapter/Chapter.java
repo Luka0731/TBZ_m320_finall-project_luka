@@ -33,7 +33,7 @@ public class Chapter extends AbstractEntity {
     private Integer chapterNumber;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "book_id", referencedColumnName = "id")
     private Book book;
 }
