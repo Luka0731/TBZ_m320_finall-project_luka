@@ -52,7 +52,6 @@ public class UserController {
     public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
         User user = userService.findById(id);
         user.setUserName(userUpdateDTO.getUserName());
-        user.setEmail(userUpdateDTO.getEmail());
         user = userService.save(user);
         return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
     }
@@ -83,4 +82,3 @@ public class UserController {
         return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.CREATED);
     }
 }
-// todo: authorisation

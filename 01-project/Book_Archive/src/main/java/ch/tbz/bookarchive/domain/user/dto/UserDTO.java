@@ -28,4 +28,3 @@ public class UserDTO extends AbstractDTO {
 
     private Set<UUID> likedBookIds = new HashSet<>();
 }
-// todo: validation

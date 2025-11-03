@@ -36,5 +36,3 @@ public class BookDTO extends AbstractDTO {
 
     private Integer likeAmount;
 }
-// todo: validation
-
