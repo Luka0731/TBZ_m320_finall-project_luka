@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +32,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Show a user by id", description = "Find and show a user by id")
-    //@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<UserDTO> retrieveById(@PathVariable UUID id) {
         User user = userService.findById(id);
         return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
@@ -39,7 +40,7 @@ public class UserController {
 
     @GetMapping({"", "/"})
     @Operation(summary = "Show all users", description = "Show all existing users")
-    //@PreAuthorize("isAuthenticated()")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<List<UserDTO>> retrieveAll() {
         List<User> users = userService.findAll();
         return new ResponseEntity<>(userMapper.toDTOs(users), HttpStatus.OK);
@@ -47,7 +48,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Update a user by id", description = "Update a certain user by id")
-    //@PreAuthorize("hasAuthority('USER_MODIFY')")
+    @PreAuthorize("isAuthenticated() && @userPermissionEvaluator.isSelf(authentication.principal.user, #id)")
     public ResponseEntity<UserDTO> updateById(@PathVariable UUID id, @Valid @RequestBody UserUpdateDTO userUpdateDTO) {
         User user = userService.findById(id);
         user.setUserName(userUpdateDTO.getUserName());
@@ -58,7 +59,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete a user", description = "Delete a certain user by id")
-    //@PreAuthorize("hasAuthority('USER_DEACTIVATE')")
+    @PreAuthorize("isAuthenticated() && @userPermissionEvaluator.isSelf(authentication.principal.user, #id)")
     public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         userService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -66,7 +67,7 @@ public class UserController {
 
     @PatchMapping("/{userId}/likes-book/{bookId}")
     @Operation(summary = "Toggle book like", description = "Like if not liked, unlike if already liked")
-    //@PreAuthorize("hasAuthority('USER_DEACTIVATE')")
+    @PreAuthorize("isAuthenticated() && @userPermissionEvaluator.isSelf(authentication.principal.user, #userId)")
     public ResponseEntity<UserDTO> toggleLikeBook(@PathVariable UUID userId, @PathVariable UUID bookId) {
         User user = userService.toggleLikeBook(userId, bookId);
         return new ResponseEntity<>(userMapper.toDTO(user), HttpStatus.OK);
