@@ -3,13 +3,13 @@
 //////////////////////////////
 
 ---
-| | Sauberes GitHub führen mit Branches
+|X| Sauberes GitHub führen mit Branches
 ---
 ---
-| | Backend machen
+|/| Backend machen
 ---
 ---
-| | Tests machen (Nur Postman)
+|/| Tests machen (Nur Postman)
 ---
 ---
 | |  Klassen Diagram
@@ -21,7 +21,7 @@
 | | Sequenzdiagramm
 ---
 ---
-| | 2 Design Patterns aussuchen
+|X| 2 Design Patterns aussuchen
 ---
 ---
 | | Design Patterns dokumentieren
